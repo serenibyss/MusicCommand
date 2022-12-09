@@ -1,0 +1,30 @@
+name: Compress to single file
+
+on:
+  workflow_dispatch:
+    inputs:
+      label:
+        description: 'Release Label'
+        default: 'RELEASE'
+        required: false
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+    
+      - name: Compress files
+        run: ./scripts/compress.sh client/*.js music.min.js
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@master
+        with:
+          tag_name: v${{ steps.get_current_version.outputs.version }}
+          files: music.min.js
+          body: "**${{ github.event.inputs.label }}**\n"
+          generate_release_notes: true
