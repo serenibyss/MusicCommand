@@ -22,14 +22,13 @@ jobs:
 
       - name: Fix execution
         run: chmod +x scripts/compress.sh
-    
+
       - name: Compress files
         run: ./scripts/compress.sh client/*.js music.min.js
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@master
         with:
-          tag_name: v${{ steps.get_current_version.outputs.version }}
+          tag_name: Release
           files: music.min.js
           body: "**${{ github.event.inputs.label }}**\n"
-          generate_release_notes: true
