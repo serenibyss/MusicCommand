@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Constants
-SERVICE_URL=http://closure-compiler.appspot.com/compile
+SERVICE_URL=https://closure-compiler.appspot.com/compile
 #NEWFILE="c`date +"%d%m%y"`.js"
 #this specifies last arg as destination 
 for NEWFILE in $*; do :; done
@@ -10,7 +10,7 @@ for NEWFILE in $*; do :; done
 if [ $# -eq 0 ]
 then
 	echo 'Nothing to compile. Specify input files as command arguments. E.g.'
-	echo './compressjs file1.js file2.js file3.js'
+	echo './compress file1.js file2.js file3.js'
 	exit
 fi
 
