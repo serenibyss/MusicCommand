@@ -17,6 +17,9 @@ jobs:
 
       - name: Setup Python
         uses: actions/setup-python@v4
+
+      - name: Fix execution
+        run: chmod +x scripts/compress.sh
     
       - name: Compress files
         run: ./scripts/compress.sh client/*.js music.min.js
