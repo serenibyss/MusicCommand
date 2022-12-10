@@ -4,9 +4,9 @@ const THUMBNAIL_ICON = "https://media.discordapp.net/attachments/814985279697846
 
 class Command {
 
-    #name; // String
-    #usage; // String
-    #action; // Function(Context)
+    #name = ""; // String
+    #usage = ""; // String
+    #action = undefined; // Function(Context)
     #subCommands = []; // Array[Command]
     #flags = []; // Array[Flag]
 

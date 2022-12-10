@@ -1,8 +1,8 @@
 class Context {
 
-    #command;
-    #flagValues = [];
-    #args = "";
+    #command = undefined; // Command
+    #flagValues = []; // Array[FlagValue]
+    #args = ""; // String
 
     constructor(command, flagValues, args) {
         this.#command = command;
