@@ -13,8 +13,8 @@ ROOT_COMMAND.setSubCommands(
 );
 
 // Run the command
-"Under reconstruction";
-// runCommands(tag.args);
+//"Under reconstruction";
+runCommands(tag.args);
 
 //let val = init(tag.args);
 //if (val !== undefined) {
@@ -32,16 +32,22 @@ function runCommands(args) {
     try {
         context = parseArgs(args);
     } catch (err) {
-        return err.toString();
+        msg.reply(err.toString());
+        return;
     }
 
     try {
-        return context.run();
+        let retVal = context.run();
+        if (typeof retVal === 'string' || retVal instanceof String) {
+            msg.reply(retVal);
+        } else {
+            msg.reply({ embed: retVal} );
+        }
     } catch (err) {
         if (err.status !== undefined) {
-            return getRetVal(`Failed with status code ${err.status}`, "", false);
+            msg.reply(`Failed with status code ${err.status}`);
         } else {
-            return getRetVal(err.toString(), "", false);
+            msg.reply(err.toString());
         }
     }
 }
