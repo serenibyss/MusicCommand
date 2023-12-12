@@ -49,23 +49,20 @@ function parseArgs(args) {
         }
 
         let found = false;
-        let flagNameRaw = splitArgs[i].replace("-", "");
-        for (let j = 0; j < chosenCmd.flags.length; j++) {
-            let flag = chosenCmd.getFlag(flagNameRaw);
-            if (flag !== undefined) {
-                found = true;
+        let flagNameRaw = splitArgs[i].replaceAll("-", "");
+        let flag = chosenCmd.getFlag(flagNameRaw);
+        if (flag !== undefined) {
+            found = true;
 
-                if (flag.getType() === BOOL_TYPE) {
-                    currentIndex++;
-                    providedFlags.push(new FlagValue(flag, true));
-                } else if (flag.getType() === STRING_TYPE) {
-                    if (splitArgs.length <= i + 1) {
-                        throw `Flag ${flagNameRaw} must have data following it.`;
-                    }
-                    currentIndex += 2;
-                    providedFlags.push(new FlagValue(flag, splitArgs[++i]));
+            if (flag.getType() === BOOL_TYPE) {
+                currentIndex++;
+                providedFlags.push(new FlagValue(flag, true));
+            } else if (flag.getType() === STRING_TYPE) {
+                if (splitArgs.length <= i + 1) {
+                    throw `Flag ${flagNameRaw} must have data following it.`;
                 }
-                break;
+                currentIndex += 2;
+                providedFlags.push(new FlagValue(flag, splitArgs[++i]));
             }
         }
         if (!found) {

@@ -30,15 +30,18 @@ class Context {
     }
 
     getHelpText() {
-        return generateHelpText(this.#command);
+        return this.#command.getHelpText();
     }
 
     getFlagValue(flag) {
         for (let i = 0; i < this.#flagValues.length; i++) {
             let value = this.#flagValues[i];
             if (value.matchesFlag(flag)) {
-                return value.getFlagValue();
+                return value.getValue();
             }
+        }
+        if (flag.getType() == BOOL_TYPE) {
+            return false;
         }
         return undefined;
     }

@@ -8,10 +8,6 @@ function processResponseV2(response, ctx) {
         return JSON.stringify(respData);
     }
 
-    if (ctx.getFlagValue(HIDDEN_ID_FLAG)) {
-        return respData.id;
-    }
-
     let title = respData.name;
     if (respData.artist != undefined) {
         title += ` - ${respData.artist}`;
@@ -45,10 +41,6 @@ function processResponse(response, ctx) {
     }
 
     let data = respData.data;
-    if (ctx.getFlagValue(HIDDEN_ID_FLAG)) {
-        return data.id;
-    }
-
     let embed = ctx.getFlagValue(NO_EMBED_FLAG);
 
     var returnStr = "";

@@ -90,7 +90,7 @@ class Command {
 
         // Flags (Discord Embed Inline-Fields)
         for (let i = 0; i < this.#flags.length; i++) {
-            let helpText = this.#flags.getHelpText();
+            let helpText = this.#flags[i].getHelpText();
             if (helpText !== undefined) {
                 fields[fieldIdx] = helpText;
                 fieldIdx++;

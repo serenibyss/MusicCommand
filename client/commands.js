@@ -15,7 +15,7 @@ function helpCommand() {
 function searchCommand() {
     let command = new Command("search");
     command.setUsage("Search a song on Spotify or Youtube");
-    command.setFlags(commonFlags().concat(ARTIST_FLAG, ALBUM_FLAG, SITE_FLAG));
+    command.setFlags(...commonFlags(), ARTIST_FLAG, ALBUM_FLAG, SITE_FLAG);
     command.setAction((ctx) => {
         if (!ctx.hasArgs()) {
             return ctx.getHelpText(); // + "Requires a search parameter"
@@ -40,16 +40,22 @@ function searchCommand() {
             q: ctx.args,
             site: site,
         });
+
+        let url = `https://spotifyv2.danfloppa.workers.dev/search?${params}`;
     
-        return processResponseV2(http.request(`https://spotifyv2.danfloppa.workers.dev/search?${params}`), ctx);
+        if (ctx.getFlagValue(RAW_REQUEST_FLAG)) {
+            return url;
+        } else {
+            return processResponseV2(http.request(url), ctx);
+        }
     });
     return command;
 }
 
-function danSongCommand() {
-    let command = new Command("dansong");
-    command.setUsage("Search a song on one of dan's Spotify Playlists. Defaults to the On Repeat playlist");
-    command.setFlags(commonFlags().concat(PID_FLAG, PNAME_FLAG));
+function seniSongCommand() {
+    let command = new Command("senisong");
+    command.setUsage("Search a song on one of seni's Spotify Playlists. Defaults to the On Repeat playlist");
+    command.setFlags(...commonFlags(), PID_FLAG, PNAME_FLAG);
     command.setAction((ctx) => {
         let pid = ctx.getFlagValue(PID_FLAG);
         let pname = ctx.getFlagValue(PNAME_FLAG);
