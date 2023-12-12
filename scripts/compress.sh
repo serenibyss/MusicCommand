@@ -59,18 +59,19 @@ if "errors" in data:
   print("### COMPILATION FAILED WITH ERRORS")
   for err in data["errors"]:
     file = sys.argv[int(err["file"].replace("Input_", "")) + 1]
-    print(f"File: {file}, {err['lineno']}:{err['charno']}")
-    print(f"Error: {err['error']}")
-    print(f"Line: {err['line']}")
+    print("File: %s, %d:%d" % (file, err["lineno"], err["charno"]))
+    print("Error: %s" % err["error"])
+    print("Line: %s" % err["line"])
+
   print("\nBuild failed.\n")
 
 else:
   print("### COMPILATION COMPLETED")
-  print(f"Original size: {data['statistics']['originalSize']}b, gziped: {data['statistics']['originalGzipSize']}b")
-  print(f"Compressed size: {data['statistics']['compressedSize']}b, gziped: {data['statistics']['compressedGzipSize']}b")
-  print("Compression rate: %.2f" % (float(data['statistics']['compressedSize']) / int(data['statistics']['originalSize'])))
+  print("Original size: %db, gziped: %db" % (data["statistics"]["originalSize"], data["statistics"]["originalGzipSize"]))
+  print("Compressed size: %db, gziped: %db" % (data["statistics"]["compressedSize"], data["statistics"]["compressedGzipSize"]))
+  print("Compression rate: %.2f" % (float(data["statistics"]["compressedSize"]) / int(data["statistics"]["originalSize"])))
   filename = "'${NEWFILE}'"
-  with open(filename, "w") as f:
+  with open(filename, "w", encoding="utf-8") as f:
     f.write(data["compiledCode"])
-  print(f"\nBuild file {filename} created.\n")
+  print("\nBuild file %s created.\n" % filename)
 ' $@
