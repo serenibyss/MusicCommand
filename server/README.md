@@ -2,4 +2,6 @@
 
 Server code is hosted via a CloudFlare worker.
 
-Host: https://spotifyv2.danfloppa.workers.dev
+Endpoints:
+- Mayasong: https://spotify.mayafop.workers.dev
+- Search: https://spotifyv2.mayafop.workers.dev

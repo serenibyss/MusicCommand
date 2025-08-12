@@ -1,7 +1,7 @@
 
 // API Keys
-const CLIENT = "Hidden Key";
-const YT_API_KEY = "Hidden Key";
+const CLIENT = "hidden key";
+const YT_API_KEY = "hidden key";
 
 const API_TOKEN = "https://accounts.spotify.com/api/token";
 const API_SPOTIFY_SEARCH = "https://api.spotify.com/v1/search";
@@ -50,9 +50,9 @@ async function handleRequest(request) {
     return handleSearchRequest(url.searchParams);
   }
 
-  // Dansong endpoint
-  if (pathname.startsWith("/dansong")) {
-    return handleDansongRequest(url);
+  // Mayasong endpoint
+  if (pathname.startsWith("/mayasong")) {
+    return handleMayasongRequest(url);
   }
 
   return fetch("https://welcome.developers.workers.dev");
@@ -152,7 +152,7 @@ async function handleYoutubeSearch(type, query) {
   return videoResponse(body.items[0]);
 }
 
-async function handleDansongRequest(path) {
+async function handleMayasongRequest(path) {
 
   return new Response("", {status: 501});
 }
@@ -180,7 +180,7 @@ async function gatherYTToken() {
 }
 
 async function sendRequest(url, method, auth, contentType, body) {
-  requestOptions = {
+  let requestOptions = {
     method: method,
     headers: {
       'Content-Type':  contentType,
